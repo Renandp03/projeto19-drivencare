@@ -6,12 +6,12 @@ async function signUp(req,res){
 
     try {
 
-        customerServices.signUp({name,email,password})
+        await customerServices.signUp({name,email,password})
 
         res.sendStatus(201)
         
     } catch (error) {
-        res.status(500).send(error)
+        res.status(error.status).send(error.message)
     }
 }
 
@@ -21,6 +21,9 @@ async function signIn(req,res){
 
     try {
         
+        const token = await customerServices.signIn({ email, password })
+
+        res.send(token)
 
 
     } catch (error) {

@@ -1,10 +1,17 @@
 
 function conflictError(message) {
     return {
-      name: "ConflictError",
+      status: 409,
       message,
     };
   }
 
+  function invalidCredentials() {
+    return {
+      status: 401,
+      message: "Email or password are incorrect",
+    };
+  }
 
-  export default { conflictError }
+
+  export default { conflictError, invalidCredentials }
