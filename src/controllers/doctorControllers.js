@@ -1,12 +1,12 @@
-import customerServices from "../services/customerServices.js";
+import doctorServices from "../services/doctorServises.js";
 
 async function signUp(req,res){
 
-    const { name, email, password } = req.body
+    const { name, email, password, specialty } = req.body
 
     try {
 
-        await customerServices.signUp({name,email,password})
+        await doctorServices.signUp({name,email,password, specialty})
 
         res.sendStatus(201)
         
@@ -21,7 +21,7 @@ async function signIn(req,res){
 
     try {
         
-        const token = await customerServices.signIn({ email, password })
+        const token = await doctorServices.signIn({ email, password })
 
         res.send(token)
 

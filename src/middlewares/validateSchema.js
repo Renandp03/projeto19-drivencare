@@ -1,8 +1,6 @@
 function validateSchema(schema){
     return (req,res,next) => { 
 
-        console.log( "chegou no validate")
-
         const { error } = schema.validate(req.body, { abortEarly: false })
 
         if( error ){
