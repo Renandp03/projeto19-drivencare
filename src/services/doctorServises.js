@@ -5,15 +5,20 @@ import jwt from "jsonwebtoken"
 import "dotenv/config"
 
 
-async function signUp({name,email,password}){
+async function signUp({name,email,password,specialty}){
 
    const { rowCount } = await doctorRepositores.findByEmail(email);
+   if(rowCount) throw errors.conflictError("email already exists");
 
-   if(rowCount) throw errors.conflictError("email already exists") ;
+   const { rowCount: rowCount2 } = await doctorRepositores.findBySpecialty();
+
+   if(!rowCount2) await doctorRepositores.createSpecialty(specialty);
+   
+   const { rows: [specialty_id] } = await doctorRepositores.findBySpecialty(specialty);
 
    const hashPassword = await bcrypt.hash(password,10);
 
-   await doctorRepositores.create({name,email,password:hashPassword,specialty});
+   await doctorRepositores.create({name,email,password:hashPassword,specialty:specialty_id.id});
 
 }
 

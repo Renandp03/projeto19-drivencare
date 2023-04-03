@@ -20,4 +20,19 @@ async function findByEmail(email) {
     );
   }
 
-export default { findByEmail, create }
+  async function findSpecialty(specialty){
+
+    await db.query(
+        `
+          SELECT (d.name, s.name)
+          FROM doctors d
+          JOIN specialtys s 
+          ON d.specialty = s.id
+          where s.name = $1
+        `,
+        [specialty]
+      ) 
+  }
+
+
+export default { findByEmail, create, findSpecialty }

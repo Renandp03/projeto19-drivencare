@@ -13,5 +13,12 @@ function conflictError(message) {
     };
   }
 
+function notFound(message){
+  return {
+    status: 404,
+    message
+  }
+}
 
-  export default { conflictError, invalidCredentials }
+
+  export default { conflictError, invalidCredentials, notFound }

@@ -10,7 +10,7 @@ async function findByEmail(email) {
     );
   }
 
-  async function create({ name, email, password }) {
+  async function create({ name, email, password, specialty }) {
     await db.query(
       `
           INSERT INTO doctors (name, email, password, specialty)
@@ -20,4 +20,21 @@ async function findByEmail(email) {
     );
   }
 
-export default { findByEmail, create }
+  async function findBySpecialty(specialty){
+    return await db.query(
+      `
+      SELECT * FROM specialtys WHERE name = $1
+      `,
+    [specialty])
+  }
+
+  async function createSpecialty(specialty){
+    return await db.query(
+      `
+      INSERT INTO specialtys (name) VALUES ($1)
+      `,
+      [specialty]
+    )
+  }
+
+export default { findByEmail, create, findBySpecialty, createSpecialty }

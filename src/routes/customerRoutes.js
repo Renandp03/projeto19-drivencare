@@ -7,5 +7,6 @@ const customerRoutes = Router()
 
 customerRoutes.post("/customers/sign-up",validateSchema(signUpSchema),customerControllers.signUp)
 customerRoutes.post("/customers/sign-in",customerControllers.signIn)
+customerRoutes.get("/customers/find-specialty",customerControllers.findSpecialty)
 
 export default customerRoutes
